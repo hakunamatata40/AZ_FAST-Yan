@@ -1,0 +1,321 @@
+@extends('layout.app')
+
+@section('styles')
+<link rel="stylesheet" href="{{ asset('css/client/index.css') }}">
+@endsection
+
+@section('content')
+
+<style>
+    .main-header {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .logo {
+        height: 80px;
+        transition: var(--transition);
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary);
+        transition: var(--transition);
+    }
+
+    .profile-img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(5, 150, 105, 0.3);
+    }
+
+    .logout-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .logout-btn:hover {
+        color: #ef4444;
+    }
+
+    /* Wallet Card */
+    .wallet{
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+    .wallet-card {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        border-radius: 20px;
+        padding: 3px;
+        color: white;
+        margin: 0px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition);
+    }
+
+    .wallet-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .wallet-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        transform: rotate(30deg);
+    }
+
+    .wallet-btn {
+        background: white;
+        color: var(--primary);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .wallet-btn:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+    }
+
+    /* Products Grid */
+    .products-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .products-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 30px 0 20px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .products-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--primary);
+    }
+
+    .products-grid {
+        display: flex;
+        
+        margin-bottom: 80px;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--accent);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+    }
+
+    .product-details {
+        padding: 15px;
+    }
+
+    .product-name {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .product-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 10px 0;
+    }
+
+    .product-btn {
+        width: 100%;
+        padding: 10px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .product-btn:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .product-image {
+            height: 150px;
+        }
+
+        .header-container {
+            padding: 0 15px;
+        }
+
+        .user-menu {
+            gap: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .product-card {
+            max-width: 100%;
+        }
+    }
+</style>
+@if (auth()->check())
+<header class="main-header">
+    <div class="header-container">
+        <!-- Logo -->
+        <a href="/client/dashboard">
+            <img src="{{ asset('AZ_fastlogo.png') }}" alt="Logo" class="logo">
+        </a>
+
+        <!-- User Menu -->
+        <div class="wallet" onclick="location.href='{{ route('wallet.transaction.form') }}'">
+            <div class="wallet-card">
+                <a href="{{ route('wallet.transaction.form') }}" class="wallet-btn" style="text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-wallet"></i> <p class="wallet-amount">{{ number_format(auth()->user()->wallet->balance, 2) }} FCFA</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Wallet Card -->
+
+@else
+<div class="guest-banner">
+    <h1>Bienvenue, invité!</h1>
+    <p>Veuillez vous connecter pour accéder à votre tableau de bord.</p>
+</div>
+@endif
+
+<!-- Products Section -->
+<div class="products-container">
+    <h1 class="products-title">Produits Disponibles</h1>
+    
+    <div class="products-grid">
+        @foreach($products as $product)
+            <div class="product-card" onclick="location.href='{{ route('products.description', $product->id) }}'">
+                @if($product->discount > 0)
+                    <span class="product-badge">-{{ $product->discount }}%</span>
+                @endif
+                
+                <!-- Product Image -->
+                <div class="product-image-container">
+                    @if($product->images->count())
+                        <img src="{{ asset('storage/' . $product->images->first()->image_path) }}" alt="{{ $product->name }}" class="product-image">
+                    @else
+                        <div class="product-image bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-image text-gray-300 text-3xl"></i>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Product Details -->
+                <div class="product-details">
+                    <h3 class="product-name">{{ $product->name }}</h3>
+                    <p class="product-description">{{ Str::limit($product->description, 60) }}</p>
+                    <p class="product-price">{{ number_format($product->price, 2) }} FCFA</p>
+                    
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
+@endsection
