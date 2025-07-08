@@ -2,11 +2,29 @@
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/client/index.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 @endsection
 
 @section('content')
 
 <style>
+    :root {
+        --primary: #059669;
+        --primary-dark: #047857;
+        --secondary: #10B981;
+        --accent: #EF4444;
+        --text: #1F2937;
+        --text-light: #6B7280;
+        --bg-gray: #F9FAFB;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-gray);
+        color: var(--text);
+    }
+
     .main-header {
         background: white;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -26,7 +44,7 @@
     }
 
     .logo {
-        height: 80px;
+        height: 60px;
         transition: var(--transition);
     }
 
@@ -34,73 +52,20 @@
         transform: scale(1.05);
     }
 
-    .user-menu {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .profile-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid var(--primary);
-        transition: var(--transition);
-    }
-
-    .profile-img:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 10px rgba(5, 150, 105, 0.3);
-    }
-
-    .logout-btn {
-        background: none;
-        border: none;
-        color: var(--text);
-        cursor: pointer;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .logout-btn:hover {
-        color: #ef4444;
-    }
-
     /* Wallet Card */
-    .wallet{
-        width: 100%;
-        display: flex;
-        justify-content: end;
-    }
     .wallet-card {
         background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        border-radius: 20px;
+        border-radius: 12px;
         padding: 3px;
         color: white;
-        margin: 0px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        position: relative;
-        overflow: hidden;
+        margin: 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: var(--transition);
     }
 
     .wallet-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .wallet-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-        transform: rotate(30deg);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .wallet-btn {
@@ -115,26 +80,27 @@
         display: inline-flex;
         align-items: center;
         gap: 5px;
+        font-size: 14px;
     }
 
     .wallet-btn:hover {
         background: rgba(255, 255, 255, 0.9);
-        transform: translateY(-2px);
     }
 
-    /* Products Grid */
+    /* Products Section */
     .products-container {
         max-width: 1200px;
-        margin: 0 auto;
+        margin: 30px auto;
         padding: 0 20px;
     }
 
     .products-title {
         font-size: 28px;
         font-weight: 700;
-        margin: 30px 0 20px;
+        margin: 30px 0;
         position: relative;
         display: inline-block;
+        color: var(--text);
     }
 
     .products-title::after {
@@ -148,18 +114,22 @@
     }
 
     .products-grid {
-        display: flex;
-        
-        margin-bottom: 80px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 50px;
     }
 
     .product-card {
         background: white;
         border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         transition: var(--transition);
         position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
     .product-card:hover {
@@ -177,39 +147,65 @@
         border-radius: 4px;
         font-size: 12px;
         font-weight: 600;
+        z-index: 2;
+    }
+
+    .product-image-container {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
     }
 
     .product-image {
         width: 100%;
-        height: 200px;
+        height: 100%;
         object-fit: cover;
-        border-bottom: 1px solid #eee;
+        transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.05);
     }
 
     .product-details {
-        padding: 15px;
+        padding: 16px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .product-name {
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 8px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        color: var(--text);
+        line-height: 1.3;
+    }
+
+    .product-description {
+        font-size: 14px;
+        color: var(--text-light);
+        margin-bottom: 12px;
+        line-height: 1.4;
+        flex-grow: 1;
+    }
+
+    .product-price-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
     }
 
     .product-price {
         font-size: 18px;
         font-weight: 700;
         color: var(--primary);
-        margin: 10px 0;
     }
 
     .product-btn {
-        width: 100%;
-        padding: 10px;
+        padding: 8px 16px;
         background: var(--primary);
         color: white;
         border: none;
@@ -217,33 +213,49 @@
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
+        font-size: 14px;
+        margin-top: 12px;
     }
 
     .product-btn:hover {
         background: var(--primary-dark);
     }
 
+    /* Empty state */
+    .empty-products {
+        text-align: center;
+        padding: 40px 0;
+        color: var(--text-light);
+    }
+
     /* Responsive */
+    @media (max-width: 1024px) {
+        .products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+    }
+
     @media (max-width: 768px) {
         .products-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
         }
 
-        .product-image {
-            height: 150px;
+        .product-image-container {
+            height: 160px;
         }
 
         .header-container {
             padding: 0 15px;
         }
 
-        .user-menu {
-            gap: 10px;
+        .logo {
+            height: 50px;
         }
     }
 
@@ -252,11 +264,12 @@
             grid-template-columns: 1fr;
         }
 
-        .product-card {
-            max-width: 100%;
+        .products-title {
+            font-size: 24px;
         }
     }
 </style>
+
 @if (auth()->check())
 <header class="main-header">
     <div class="header-container">
@@ -265,19 +278,14 @@
             <img src="{{ asset('AZ_fastlogo.png') }}" alt="Logo" class="logo">
         </a>
 
-        <!-- User Menu -->
-        <div class="wallet" onclick="location.href='{{ route('wallet.transaction.form') }}'">
-            <div class="wallet-card">
-                <a href="{{ route('wallet.transaction.form') }}" class="wallet-btn" style="text-decoration: none; font-weight: bold;">
-                    <i class="fas fa-wallet"></i> <p class="wallet-amount">{{ number_format(auth()->user()->wallet->balance, 2) }} FCFA</p>
-                </a>
-            </div>
+        <!-- Wallet -->
+        <div class="wallet-card" onclick="location.href='{{ route('wallet.transaction.form') }}'">
+            <a href="{{ route('wallet.transaction.form') }}" class="wallet-btn" style="text-decoration: none;">
+                <i class="fas fa-wallet"></i> {{ number_format(auth()->user()->wallet->balance, 2) }} FCFA
+            </a>
         </div>
     </div>
 </header>
-
-<!-- Wallet Card -->
-
 @else
 <div class="guest-banner">
     <h1>Bienvenue, invité!</h1>
@@ -287,8 +295,9 @@
 
 <!-- Products Section -->
 <div class="products-container">
-    <h1 class="products-title">Produits Disponibles</h1>
+    <h1 class="products-title">Nos Produits</h1>
     
+    @if($products->count() > 0)
     <div class="products-grid">
         @foreach($products as $product)
             <div class="product-card" onclick="location.href='{{ route('products.description', $product->id) }}'">
@@ -310,12 +319,21 @@
                 <!-- Product Details -->
                 <div class="product-details">
                     <h3 class="product-name">{{ $product->name }}</h3>
-                    <p class="product-description">{{ Str::limit($product->description, 60) }}</p>
-                    <p class="product-price">{{ number_format($product->price, 2) }} FCFA</p>
+                    <p class="product-description">{{ Str::limit($product->description, 80) }}</p>
                     
+                    <div class="product-price-container">
+                        <p class="product-price">{{ number_format($product->price, 2) }} FCFA</p>
+                    </div>
                 </div>
             </div>
         @endforeach
     </div>
+    @else
+    <div class="empty-products">
+        <i class="fas fa-box-open fa-3x" style="color: #e5e7eb; margin-bottom: 15px;"></i>
+        <h3>Aucun produit disponible pour le moment</h3>
+        <p>Revenez plus tard pour découvrir nos nouveautés</p>
+    </div>
+    @endif
 </div>
 @endsection

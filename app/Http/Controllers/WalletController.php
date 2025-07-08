@@ -27,6 +27,7 @@ class WalletController extends Controller
 
         $user = Auth::user();
         $wallet = $user->wallet;
+        
 
         // Simulate the deposit process
         // In real implementation, this is where you'd call the payment gateway API like MoMo API or Orange API
