@@ -545,9 +545,6 @@
                 <button class="btn btn-primary" onclick="addToCart()">
                     <i class="fas fa-cart-plus"></i> Ajouter au panier
                 </button>
-                <button class="btn btn-secondary">
-                    <i class="far fa-heart"></i> Favoris
-                </button>
             </div>
         </div>
     </div>
@@ -558,7 +555,7 @@
             <h2 class="section-title">Produits similaires</h2>
             <div class="products-grid">
                 @foreach($relatedProducts as $related)
-                    <div class="product-card" onclick="location.href='{{ route('products.show', $related->id) }}'">
+                    <div class="product-card"  onclick="location.href='{{ route('products.description', $related->id) }}'">>
                         @if($related->discount > 0)
                             <span class="product-badge">-{{ $related->discount }}%</span>
                         @endif

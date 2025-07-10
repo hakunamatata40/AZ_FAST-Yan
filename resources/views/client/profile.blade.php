@@ -327,11 +327,6 @@
         @if (auth()->check())
             <!-- Header -->
             <header class="header">
-                <div class="logo">
-                    <a href="/client/dashboard">
-                        <img src="{{ asset('AZ_fastlogo.png') }}" alt="Logo">
-                    </a>
-                </div>
 
                 <div class="user-info">
                     @if (auth()->user()->profileImage)

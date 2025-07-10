@@ -218,24 +218,24 @@ public function products()
     // Display the client dashboard after registration (optional)
 
 
-    public function productsByInterests()
-    {
-        $user = auth()->user();
-        
-        if (!$user) {
-            return redirect()->route('login');
-        }
-
-        // Décoder les centres d'intérêt de l'utilisateur
-        $interests = json_decode($user->interests, true) ?? [];
-
-        // Récupérer les produits correspondant aux centres d'intérêt
-        $products = Product::whereIn('category_id', $interests)
-                        ->with('images')
-                        ->get();
-
-        return view('client.products.interests', compact('products'));
+public function productsByInterests()
+{
+    $user = auth()->user();
+    
+    if (!$user) {
+        return redirect()->route('login');
     }
 
+    // Décoder les centres d'intérêt de l'utilisateur
+    $interests = json_decode($user->interests, true) ?? [];
+
+    // Récupérer les produits correspondant aux centres d'intérêt avec leurs images et catégories
+    $products = Product::whereIn('category_id', $interests)
+                    ->with(['images', 'category']) // Charger les relations images et category
+                    ->where('status', 'active') // Seulement les produits actifs
+                    ->get();
+
+    return view('client.products.interests', compact('products'));
+}
    
 }

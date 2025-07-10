@@ -55,7 +55,7 @@
     /* Wallet Card */
     .wallet-card {
         background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        border-radius: 12px;
+        border-radius: 20px;
         padding: 3px;
         color: white;
         margin: 0;
