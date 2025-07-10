@@ -361,7 +361,7 @@
 
     .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1.5rem;
     }
 
@@ -467,9 +467,9 @@
             <!-- Main Image -->
             <div class="main-image-container">
                 @if($product->images->count())
-                    <img id="mainImage" src="{{ asset('storage/' . $product->images->first()->image_path) }}" 
-                         alt="{{ $product->name }}" 
-                         class="main-image">
+                    <img id="mainImage" src="{{ asset($product->images->first()->image_path) }}" 
+                        alt="{{ $product->name }}" 
+                        class="main-image">
                 @else
                     <i class="fas fa-image" style="font-size: 3rem; color: #adb5bd;"></i>
                 @endif
@@ -479,10 +479,10 @@
             @if($product->images->count() > 1)
                 <div class="thumbnail-container">
                     @foreach($product->images as $image)
-                        <img src="{{ asset('storage/' . $image->image_path) }}" 
-                             alt="{{ $product->name }}" 
-                             class="thumbnail {{ $loop->first ? 'active' : '' }}"
-                             onclick="changeMainImage('{{ asset('storage/' . $image->image_path) }}', this)">
+                        <img src="{{ asset($image->image_path) }}" 
+                            alt="{{ $product->name }}" 
+                            class="thumbnail {{ $loop->first ? 'active' : '' }}"
+                            onclick="changeMainImage('{{ asset($image->image_path) }}', this)">
                     @endforeach
                 </div>
             @endif
@@ -565,9 +565,9 @@
                         
                         <div class="product-image-container">
                             @if($related->images->count())
-                                <img src="{{ asset('storage/' . $related->images->first()->image_path) }}" 
-                                     alt="{{ $related->name }}" 
-                                     class="product-image">
+                                <img src="{{ asset($related->images->first()->image_path) }}" 
+                                    alt="{{ $related->name }}" 
+                                    class="product-image">
                             @else
                                 <i class="fas fa-image" style="font-size: 2rem; color: #adb5bd;"></i>
                             @endif

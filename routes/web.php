@@ -80,12 +80,12 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-   // Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-    Route::post('/products/edit', [ProductController::class, 'update'])->name('products.edit');
-    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-    Route::get('/client/products', [ClientController::class, 'products'])->name('client.products.index');
+// Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/produits', [ProductController::class, 'store1'])->name('products.store');
+Route::post('/products/edit', [ProductController::class, 'update'])->name('products.edit');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::get('/client/products', [ClientController::class, 'products'])->name('client.products.index');
 
 // Client registration routes
 Route::get('/client/register', [ClientController::class, 'showRegisterForm'])->name('client.register.form');

@@ -235,15 +235,17 @@
     /* Responsive */
     @media (max-width: 1024px) {
         .products-grid {
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 24px;
         }
     }
 
     @media (max-width: 768px) {
         .products-grid {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 15px;
+            margin-bottom: 15px;
         }
 
         .product-image-container {
@@ -261,7 +263,9 @@
 
     @media (max-width: 480px) {
         .products-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 10px;
         }
 
         .products-title {
@@ -308,7 +312,7 @@
                 <!-- Product Image -->
                 <div class="product-image-container">
                     @if($product->images->count())
-                        <img src="{{ asset('storage/' . $product->images->first()->image_path) }}" alt="{{ $product->name }}" class="product-image">
+                        <img src="{{ asset($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="product-image">
                     @else
                         <div class="product-image bg-gray-100 flex items-center justify-center">
                             <i class="fas fa-image text-gray-300 text-3xl"></i>
